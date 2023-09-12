@@ -72,11 +72,12 @@ function countNewAvailable(available, guess, a, b) {
   return newAvailableCount
 }
 
-function aaa() {
+function doStuff() {
   const a = Number(document.getElementById("a").value)
   const b = Number(document.getElementById("b").value)
   if (a < 0 || a > 3 || b < 0 || b > 3) {
     document.getElementById("lable").innerHTML = "请输入正确的a和b的值"
+    return
   }
   available = calNewAvailable(available, guess, a, b)
   document.getElementById("left").innerHTML = "猜了" + guess + "后剩余可能" + available
@@ -90,7 +91,7 @@ function aaa() {
   }
 }
 
-function bbb() {
+function doReset() {
   document.getElementById("lable").innerHTML = "请猜123并输入a和b的值"
   available = []
   guess = 123
@@ -103,4 +104,4 @@ function bbb() {
   document.getElementById("left").innerHTML = "剩余可能" + available
 }
 
-bbb()
+doReset()
