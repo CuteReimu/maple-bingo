@@ -76,23 +76,23 @@ function doStuff() {
   const a = Number(document.getElementById("a").value)
   const b = Number(document.getElementById("b").value)
   if (a < 0 || a > 3 || b < 0 || b > 3) {
-    document.getElementById("lable").innerHTML = "请输入正确的a和b的值"
+    document.getElementById("label").innerHTML = "请输入正确的a和b的值"
     return
   }
   available = calNewAvailable(available, guess, a, b)
   document.getElementById("left").innerHTML = "猜了" + guess + "后剩余可能" + available
   if (available.length === 1) {
-    document.getElementById("lable").innerHTML = "答案是" + available[0]
+    document.getElementById("label").innerHTML = "答案是" + available[0]
   } else if (available.length === 0) {
-    document.getElementById("lable").innerHTML = "没有答案"
+    document.getElementById("label").innerHTML = "没有答案"
   } else {
     guess = chooseGuess(available)
-    document.getElementById("lable").innerHTML = "请猜" + guess + "并输入a和b的值"
+    document.getElementById("label").innerHTML = "请猜" + guess + "并输入a和b的值"
   }
 }
 
 function doReset() {
-  document.getElementById("lable").innerHTML = "请猜123并输入a和b的值"
+  document.getElementById("label").innerHTML = "请猜123并输入a和b的值"
   available = []
   guess = 123
   for (let i = 123; i <= 987; i++) {
