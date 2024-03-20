@@ -2,10 +2,10 @@ let available = []
 let guess = 123
 
 function calAB(guess, answer) {
-  const v0 = [Math.floor(guess / 100), Math.floor(guess / 10 % 10), Math.floor(guess % 10)];
-  const v1 = [Math.floor(answer / 100), Math.floor(answer / 10 % 10), Math.floor(answer % 10)];
-  let a = 0;
-  let b = 0;
+  const v0 = [Math.floor(guess / 100), Math.floor(guess / 10 % 10), Math.floor(guess % 10)]
+  const v1 = [Math.floor(answer / 100), Math.floor(answer / 10 % 10), Math.floor(answer % 10)]
+  let a = 0
+  let b = 0
   for (const i in v0) {
     for (const j in v1) {
       if (v0[i] === v1[j]) {
@@ -20,7 +20,7 @@ function calAB(guess, answer) {
 
 function chooseGuess(available) {
   let minGuess = 0
-  let minGuessCount = 9999999999999999999999
+  let minGuessCount = Infinity
   for (let i of available) {
     const ave = calAverageAvailable(available, i)
     if (ave < minGuessCount) {
@@ -51,25 +51,20 @@ function calAverageAvailable(available, guess) {
 }
 
 function calNewAvailable(available, guess, a, b) {
-  const newAvailable = []
-  for (const num of available) {
+  return available.filter(num => {
     const ab = calAB(num, guess)
-    if (ab[0] === a && ab[1] === b) {
-      newAvailable.push(num)
-    }
-  }
-  return newAvailable
+    return ab[0] === a && ab[1] === b
+  })
 }
 
 function countNewAvailable(available, guess, a, b) {
-  let newAvailableCount = 0
-  for (const num of available) {
+  return available.reduce((count, num) => {
     const ab = calAB(num, guess)
     if (ab[0] === a && ab[1] === b) {
-      newAvailableCount++
+      count++
     }
-  }
-  return newAvailableCount
+    return count
+  }, 0)
 }
 
 function doStuff() {
