@@ -5,44 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>名侦探甘迪助手</title>
   <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #e8f4fd 0%, #fef9f0 100%);
-      min-height: 100vh;
-      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    }
-    .page-container { max-width: 720px; margin: 0 auto; padding: 32px 16px; }
-    .page-title { text-align: center; margin-bottom: 28px; }
-    .page-title h1 { font-size: 28px; font-weight: 700; color: #1a3a5c; margin: 0 0 6px; }
-    .page-title p { color: #666; font-size: 14px; margin: 0; }
-    .card-gap { margin-bottom: 16px; }
-    .guess-display {
-      display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 0;
-    }
-    .guess-digit {
-      width: 56px; height: 56px; border-radius: 12px;
-      background: linear-gradient(135deg, #409eff, #2b7fd4);
-      color: white; font-size: 28px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(64,158,255,0.35);
-    }
-    .guess-sep { font-size: 22px; color: #aaa; font-weight: 300; }
-    .feedback-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 8px; }
-    .feedback-item { display: flex; align-items: center; gap: 8px; }
-    .feedback-label { font-size: 16px; font-weight: 600; min-width: 28px; }
-    .circle-label { color: #e6523a; }
-    .triangle-label { color: #e6a817; }
-    .history-guess { font-family: monospace; font-weight: 700; letter-spacing: 3px; font-size: 16px; color: #303133; }
-    .stat-row { display: flex; gap: 16px; flex-wrap: wrap; }
-    .stat-item { flex: 1; min-width: 120px; background: #f4f9ff; border-radius: 10px; padding: 12px 16px; text-align: center; }
-    .stat-val { font-size: 24px; font-weight: 700; color: #409eff; }
-    .stat-desc { font-size: 12px; color: #888; margin-top: 2px; }
-    .entropy-badge {
-      display: inline-block; font-size: 12px; color: #909399;
-      background: #f5f7fa; border-radius: 8px; padding: 2px 8px; margin-left: 8px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div id="app">
@@ -154,6 +117,50 @@
         </el-table-column>
       </el-table>
     </el-card>
+
+    <!-- 游戏规则（默认展开，放在最底部） -->
+    <el-collapse class="card-gap" style="border-radius:8px;overflow:hidden;background:white;" :model-value="['rules']">
+      <el-collapse-item name="rules">
+        <template #title>
+          <span style="font-weight:600;font-size:15px;padding-left:4px;">📖 游戏规则</span>
+        </template>
+        <div class="rules-body">
+          <p>
+            名侦探甘迪是《冒险岛Online》推出的一个小游戏。系统会从 <strong>1-9</strong> 九个数字中随机选择
+            <strong>三个不同的数字</strong>，按某个顺序排列作为答案，共有
+            <el-tag size="small" type="primary" style="margin:0 2px;">504</el-tag> 种可能。
+          </p>
+          <p>玩家每轮按顺序猜三个不同的数字，系统给出两种反馈：</p>
+          <div class="rules-feedback">
+            <div class="rules-feedback-item">
+              <span class="feedback-badge circle-badge">○</span>
+              <div>
+                <div style="font-weight:600;">数字正确 且 位置正确</div>
+                <div class="rules-hint">猜对了数字，并且放在了正确的位置上</div>
+              </div>
+            </div>
+            <div class="rules-feedback-item">
+              <span class="feedback-badge triangle-badge">△</span>
+              <div>
+                <div style="font-weight:600;">数字正确 但 位置错误</div>
+                <div class="rules-hint">猜对了数字，但放的位置不对</div>
+              </div>
+            </div>
+          </div>
+          <el-alert type="info" :closable="false" style="margin-top:12px;">
+            <template #default>
+              <strong>示例：</strong>答案是 <strong>3-1-5</strong>，你猜 <strong>1-2-3</strong>，反馈为
+              <el-tag size="small" type="danger" style="margin:0 3px;">○ 0</el-tag>
+              <el-tag size="small" type="warning" style="margin:0 3px;">△ 2</el-tag>，
+              因为 1 和 3 都猜对了但位置都不对，2 不在答案中。
+            </template>
+          </el-alert>
+          <p style="margin-bottom:0;color:#67c23a;font-weight:600;">
+            🎯 目标：用尽可能少的轮次猜出正确答案！
+          </p>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
 
   </div>
 </div>
